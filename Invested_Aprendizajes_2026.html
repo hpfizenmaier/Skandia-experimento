@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invest-ed 3.0 — Informe de Aprendizajes</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --sk-green:#00C73D;
+  --sk-green-dark:#009B2E;
+  --sk-green-deep:#005C1C;
+  --sk-green-light:#E6FAF0;
+  --sk-green-mid:#B3F0CB;
+  --sk-gray:#404040;
+  --sk-gray-light:#F5F5F5;
+  --sk-gray-mid:#E0E0E0;
+  --sk-gray-dark:#1A1A1A;
+  --sk-orange:#FFAE08;
+  --white:#fff;
+  --font:'Montserrat',sans-serif;
+}
+body{font-family:var(--font);background:#fff;color:var(--sk-gray);min-height:100vh;}
+.pres{width:100%;max-width:960px;margin:0 auto;}
+
+/* PROGRESS BAR */
+.prog-bar{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--sk-gray-mid);}
+.prog-steps{display:flex;overflow-x:auto;scrollbar-width:none;}
+.prog-steps::-webkit-scrollbar{display:none;}
+.step-btn{flex:1;min-width:90px;padding:12px 8px;border:none;background:transparent;font-family:var(--font);font-size:11px;font-weight:500;color:#999;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;text-align:center;}
+.step-btn:hover{color:var(--sk-gray);border-bottom-color:var(--sk-gray-mid);}
+.step-btn.active{color:var(--sk-green-dark);border-bottom-color:var(--sk-green);}
+.step-num{display:block;font-size:9px;font-weight:600;letter-spacing:.08em;margin-bottom:2px;opacity:.6;}
+
+/* SLIDES */
+.slide{display:none;animation:fadeIn .3s ease;}
+.slide.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+/* COVER */
+.slide-cover{background:var(--sk-green-deep);padding:0;overflow:hidden;position:relative;min-height:320px;}
+.cover-geo{position:absolute;top:-40px;right:-40px;width:280px;height:280px;opacity:.12;}
+.cover-geo2{position:absolute;bottom:-60px;left:10px;width:180px;height:180px;opacity:.08;}
+.cover-inner{display:flex;flex-direction:column;justify-content:flex-end;padding:3rem 3rem 2.5rem;position:relative;z-index:2;min-height:320px;}
+.cover-eyebrow{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--sk-green);margin-bottom:.75rem;}
+.cover-title{font-size:clamp(24px,4vw,40px);font-weight:700;color:#fff;line-height:1.15;margin-bottom:.75rem;}
+.cover-title span{color:var(--sk-green);}
+.cover-sub{font-size:15px;color:rgba(255,255,255,.62);margin-bottom:1.75rem;line-height:1.6;max-width:600px;}
+.cover-pills{display:flex;flex-wrap:wrap;gap:8px;}
+.cover-pill{padding:5px 16px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid rgba(0,199,61,.4);color:var(--sk-green);}
+
+/* SECTION HEADER */
+.sec-hdr{padding:2rem 2.5rem 1rem;}
+.sec-eyebrow{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--sk-green);margin-bottom:.35rem;}
+.sec-title{font-size:22px;font-weight:700;color:var(--sk-gray-dark);line-height:1.3;}
+.sec-sub{font-size:14px;color:#666;margin-top:.4rem;line-height:1.6;}
+.divider{height:2px;background:linear-gradient(90deg,var(--sk-green) 0%,var(--sk-green-mid) 60%,transparent 100%);margin:0 2.5rem .5rem;}
+.cp{padding:0 2.5rem 2.5rem;}
+
+/* FOCUS BOX */
+.focus-box{background:var(--sk-green-deep);border-radius:12px;padding:1.4rem 1.75rem;margin:1rem 0 1.5rem;}
+.focus-box-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sk-green);margin-bottom:.5rem;}
+.focus-box p{font-size:14px;color:#fff;line-height:1.7;}
+.focus-box strong{color:var(--sk-green);}
+
+/* STAT ROW */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:1rem 0 1.5rem;}
+.stat-card{background:var(--sk-gray-light);border-radius:10px;padding:1rem 1.1rem;border-left:3px solid var(--sk-green);}
+.stat-val{font-size:22px;font-weight:700;color:var(--sk-green-dark);line-height:1.1;}
+.stat-lbl{font-size:11px;color:#888;margin-top:.25rem;line-height:1.4;}
+
+/* HALLAZGOS GRID */
+.h-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin:1rem 0 1.5rem;}
+.h-card{background:#fff;border:1px solid var(--sk-gray-mid);border-radius:10px;padding:1.1rem 1.25rem;position:relative;overflow:hidden;}
+.h-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.h-alto::before{background:var(--sk-green);}
+.h-medio::before{background:var(--sk-orange);}
+.h-num{font-size:10px;font-weight:600;color:#bbb;margin-bottom:.3rem;letter-spacing:.06em;}
+.h-title{font-size:13px;font-weight:700;color:var(--sk-gray-dark);margin-bottom:.4rem;line-height:1.35;}
+.h-desc{font-size:12px;color:#777;line-height:1.55;}
+.badge{display:inline-block;font-size:10px;font-weight:600;padding:3px 9px;border-radius:10px;margin-bottom:.45rem;}
+.b-alto{background:#E6FAF0;color:#009B2E;}
+.b-medio{background:#FFF8E1;color:#B37800;}
+.b-critica{background:#E6FAF0;color:var(--sk-green-dark);}
+.b-alta{background:#FFF3E0;color:#C07000;}
+
+/* DETAIL BLOCKS */
+.detail-block{border-bottom:1px solid var(--sk-gray-mid);padding:1.25rem 0;}
+.detail-block:last-child{border-bottom:none;}
+.db-hdr{display:flex;align-items:flex-start;gap:.85rem;margin-bottom:.55rem;}
+.db-num{width:32px;height:32px;min-width:32px;border-radius:50%;background:var(--sk-green-light);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--sk-green-dark);}
+.db-title{font-size:15px;font-weight:700;color:var(--sk-gray-dark);line-height:1.4;padding-top:5px;}
+.db-body{font-size:13px;color:#666;line-height:1.7;padding-left:3rem;}
+.quote{background:var(--sk-green-light);border-left:3px solid var(--sk-green);border-radius:0 8px 8px 0;padding:.85rem 1.1rem;margin:.85rem 0 0 3rem;}
+.quote p{font-size:13px;color:var(--sk-green-dark);font-style:italic;line-height:1.55;}
+.quote span{display:block;font-size:11px;color:#888;margin-top:.35rem;font-style:normal;}
+
+/* FORTALEZAS */
+.fort-row{display:flex;gap:.85rem;align-items:flex-start;padding:.85rem 0;border-bottom:1px solid var(--sk-gray-mid);}
+.fort-row:last-child{border-bottom:none;}
+.fort-ico{width:34px;height:34px;min-width:34px;border-radius:50%;background:var(--sk-green-light);display:flex;align-items:center;justify-content:center;}
+.fort-ico svg{width:16px;height:16px;}
+.fort-title{font-size:13px;font-weight:700;color:var(--sk-gray-dark);margin-bottom:.15rem;}
+.fort-desc{font-size:12px;color:#777;line-height:1.5;}
+
+/* HIPOTESIS */
+.hip-list{display:flex;flex-direction:column;gap:12px;margin-top:.75rem;}
+.hip-card{background:#fff;border:1px solid var(--sk-gray-mid);border-radius:10px;padding:1.1rem 1.25rem;}
+.hip-card.highlight{border-left:3px solid var(--sk-green);background:var(--sk-green-light);}
+.hip-card.highlight .hip-title{color:var(--sk-green-dark);}
+.hip-hdr{display:flex;align-items:center;gap:.7rem;margin-bottom:.45rem;}
+.hip-num{font-size:10px;font-weight:700;color:#aaa;letter-spacing:.06em;}
+.hip-title{font-size:14px;font-weight:700;color:var(--sk-gray-dark);margin-bottom:.45rem;line-height:1.4;}
+.hip-desc{font-size:13px;color:#666;line-height:1.65;}
+
+/* PASOS */
+.paso-list{display:flex;flex-direction:column;gap:12px;margin-top:.75rem;}
+.paso-card{display:flex;gap:1.1rem;background:#fff;border:1px solid var(--sk-gray-mid);border-radius:10px;padding:1.1rem 1.25rem;align-items:flex-start;}
+.paso-num{width:38px;height:38px;min-width:38px;border-radius:50%;background:var(--sk-green);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;}
+.paso-title{font-size:14px;font-weight:700;color:var(--sk-gray-dark);margin-bottom:.35rem;}
+.paso-desc{font-size:13px;color:#666;line-height:1.6;}
+
+/* FRICCIONES */
+.fric-item{display:flex;gap:.85rem;align-items:flex-start;padding:.85rem 1rem;background:#fff;border:1px solid var(--sk-gray-mid);border-radius:10px;margin-bottom:10px;}
+.fric-dot{width:9px;height:9px;min-width:9px;border-radius:50%;margin-top:5px;}
+.fric-body{font-size:13px;color:#555;line-height:1.6;}
+.fric-body strong{color:var(--sk-gray-dark);}
+
+/* CIERRE */
+.cierre{background:var(--sk-green-deep);border-radius:14px;padding:2.25rem 2.5rem;position:relative;overflow:hidden;}
+.cierre-geo{position:absolute;right:-30px;bottom:-30px;width:180px;height:180px;opacity:.1;}
+.cierre-label{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--sk-green);margin-bottom:.5rem;}
+.cierre-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:1.1rem;line-height:1.4;}
+.cierre-text{font-size:14px;color:rgba(255,255,255,.72);line-height:1.8;margin-bottom:.85rem;}
+.cierre-footer{font-size:11px;color:rgba(255,255,255,.3);margin-top:1.5rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.1);}
+
+/* MARKET CARDS */
+.mkt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:1rem 0 1.5rem;}
+.mkt-card{border:1px solid var(--sk-gray-mid);border-radius:10px;padding:1.1rem;background:#fff;}
+.mkt-val{font-size:18px;font-weight:700;color:var(--sk-green-dark);margin-bottom:.25rem;margin-top:.6rem;}
+.mkt-desc{font-size:12px;color:#777;line-height:1.5;}
+
+/* TWO COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0;}
+@media(max-width:600px){.two-col{grid-template-columns:1fr;}}
+.col-block{background:var(--sk-gray-light);border-radius:10px;padding:1.1rem;}
+.col-block-title{font-size:12px;font-weight:700;color:var(--sk-gray-dark);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.05em;}
+
+/* NAV */
+.nav-row{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2.5rem;border-top:1px solid var(--sk-gray-mid);margin-top:.5rem;}
+.nav-arrow{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#999;cursor:pointer;background:none;border:1px solid var(--sk-gray-mid);border-radius:20px;padding:7px 18px;font-family:var(--font);transition:all .15s;}
+.nav-arrow:hover{border-color:var(--sk-green);color:var(--sk-green);}
+.nav-arrow:disabled{opacity:.3;cursor:not-allowed;}
+.slide-counter{font-size:11px;color:#aaa;font-weight:500;}
+</style>
+</head>
+<body>
+
+<div class="pres">
+
+<!-- PROGRESS BAR -->
+<div class="prog-bar">
+  <div class="prog-steps">
+    <button class="step-btn active" onclick="goTo(0)"><span class="step-num">01</span>Portada</button>
+    <button class="step-btn" onclick="goTo(1)"><span class="step-num">02</span>Contexto</button>
+    <button class="step-btn" onclick="goTo(2)"><span class="step-num">03</span>El servicio</button>
+    <button class="step-btn" onclick="goTo(3)"><span class="step-num">04</span>Fricciones</button>
+    <button class="step-btn" onclick="goTo(4)"><span class="step-num">05</span>Aprendizajes</button>
+    <button class="step-btn" onclick="goTo(5)"><span class="step-num">06</span>Profundidad</button>
+    <button class="step-btn" onclick="goTo(6)"><span class="step-num">07</span>Hipótesis</button>
+    <button class="step-btn" onclick="goTo(7)"><span class="step-num">08</span>Pasos</button>
+    <button class="step-btn" onclick="goTo(8)"><span class="step-num">09</span>Cierre</button>
+  </div>
+</div>
+
+<!-- SLIDE 0: PORTADA -->
+<div class="slide active" id="s0">
+  <div class="slide-cover">
+
+    <div class="cover-inner">
+      <div class="cover-eyebrow">Invest-ed 3.0 · Taller de co-creación</div>
+      <div class="cover-title">Informe de <span>aprendizajes</span>,<br>hipótesis y siguientes pasos</div>
+      <div class="cover-sub">Síntesis estratégica del taller interno con stakeholders para definir el futuro de Invested. Foco: escalar la propuesta de valor más allá de las rentabilidades.</div>
+      <div class="cover-pills">
+        <span class="cover-pill">Marzo 2026</span>
+        <span class="cover-pill">UXplorers</span>
+        <span class="cover-pill">Equipo de Producto</span>
+      </div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-arrow" disabled>← Anterior</button>
+    <span class="slide-counter">1 / 9</span>
+    <button class="nav-arrow" onclick="goTo(1)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- SLIDE 1: CONTEXTO -->
+<div class="slide" id="s1">
+  <div class="sec-hdr">
+    <div class="sec-eyebrow">01 — Contexto</div>
+    <div class="sec-title">¿Por qué hicimos este taller?</div>
+    <div class="sec-sub">Alinear visión estratégica, definir problemas prioritarios y construir hipótesis para validar con clientes.</div>
+  </div>
+  <div class="divider"></div>
+  <div class="cp">
+    <div class="focus-box">
+      <div class="focus-box-label">Foco estratégico acordado por el equipo</div>
+      <p>El equipo de producto decidió que la pregunta central del proyecto es: <strong>¿cómo escalar la propuesta de valor de Invested más allá de las rentabilidades?</strong> ¿Qué hace que Invested sea valioso cuando el mercado no acompaña?</p>
+    </div>
+    <p style="font-size:14px;color:#666;line-height:1.7;margin-bottom:1rem;">La metodología se estructuró en dos fases: primero una <strong style="color:#333;">alineación interna</strong> para unificar la visión y definir hipótesis clave; y en una segunda etapa la <strong style="color:#333;">validación con clientes</strong>, que es el siguiente paso del proyecto.</p>
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-val">$488MM+</div><div class="stat-lbl">AUMs activos en el servicio (enero 2026)</div></div>
+      <div class="stat-card"><div class="stat-val">~7.000</div><div class="stat-lbl">Clientes activos en Invested</div></div>
+      <div class="stat-card"><div class="stat-val">USD $18.7B</div><div class="stat-lbl">Mercado global robo-advisor en 2026</div></div>
+      <div class="stat-card"><div class="stat-val">60.7%</div><div class="stat-lbl">Del mercado ya es modelo híbrido (humano + automatizado)</div></div>
+    </div>
+    <div class="two-col">
+      <div class="col-block">
+        <div class="col-block-title">Lo que hicimos en el taller</div>
+        <p style="font-size:13px;color:#666;line-height:1.65;">Ejercicio 1: diagnóstico del rol actual (fortalezas, vacíos, suposiciones sin validar). Ejercicio 2: formulación de ejes estratégicos. Ejercicio 3: construcción de hipótesis de diseño y negocio.</p>
+      </div>
+      <div class="col-block">
+        <div class="col-block-title">Lo que viene después</div>
+        <p style="font-size:13px;color:#666;line-height:1.65;">Validación de hipótesis con clientes activos, inactivos y prospectos. Prototipado de alta fidelidad de los flujos prioritarios. Diseño del nuevo modelo de comunicación post-activación.</p>
+      </div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-arrow" onclick="goTo(0)">← Anterior</button>
+    <span class="slide-counter">2 / 9</span>
+    <button class="nav-arrow" onclick="goTo(2)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- SLIDE 2: EL SERVICIO -->
+<div class="slide" id="s2">
+  <div class="sec-hdr">
+    <div class="sec-eyebrow">02 — El servicio</div>
+    <div class="sec-title">¿Qué es hoy Invest-ed?</div>
+    <div class="sec-sub">Servicio de recomendación de inversión personalizada para clientes Skandia Multifund.</div>
+  </div>
+  <div class="divider"></div>
+  <div class="cp">
+    <div class="mkt-grid">
+      <div class="mkt-card">
+        <div style="width:38px;height:38px;border-radius:50%;background:var(--sk-green-light);display:flex;align-items:center;justify-content:center;">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L16 14H2L9 2Z" fill="#009B2E"/></svg>
+        </div>
+        <div class="mkt-val">Expertos</div>
+        <div class="mkt-desc">Recomendación personalizada basada en modelo estadístico + criterio experto. Doble gestión.</div>
+      </div>
+      <div class="mkt-card">
+        <div style="width:38px;height:38px;border-radius:50%;background:var(--sk-green-light);display:flex;align-items:center;justify-content:center;">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#009B2E" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#009B2E" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="mkt-val">3 Variables</div>
+        <div class="mkt-desc">Objetivos de inversión, Horizonte de tiempo y Perfil de riesgo (Prudente / Observador / Arriesgado).</div>
+      </div>
+      <div class="mkt-card">
+        <div style="width:38px;height:38px;border-radius:50%;background:var(--sk-green-light);display:flex;align-items:center;justify-content:center;">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="10" width="3" height="5" fill="#009B2E"/><rect x="8" y="6" width="3" height="9" fill="#009B2E"/><rect x="13" y="2" width="3" height="13" fill="#009B2E"/></svg>
+        </div>
+        <div class="mkt-val">6 Mezclas</div>
+        <div class="mkt-desc">Cauta, Discreta, Paciente, Dinámica, Decidida y Audaz. Rebalanceo automático según condiciones de mercado.</div>
+      </div>
+      <div class="mkt-card">
+        <div style="width:38px;height:38px;border-radius:50%;background:var(--sk-green-light);display:flex;align-items:center;justify-content:center;">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="3" stroke="#009B2E" stroke-width="1.5"/><path d="M6 9h6M9 6v6" stroke="#009B2E" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="mkt-val">Portal</div>
+        <div class="mkt-desc">Post-venta con consulta de recomendación, rentabilidades, edición de mezclas y activación en múltiples contratos.</div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:#666;line-height:1.65;margin-bottom:.85rem;"><strong style="color:#333;">Rentabilidad al 31 Dic 2025:</strong> Cauta 7.1% / Discreta 6.3% / Paciente 6.5% / Dinámica 7.4% / Decidida 7.6% / Audaz 8.5% (todas EA, 1 año).</p>
+    <div class="focus-box">
+      <div class="focus-box-label">El producto funciona mejor para...</div>
+      <p>Personas que quieren <strong>más que ahorro básico</strong>, valoran la diversificación y la gestión profesional, pero <strong>no quieren operar activamente</strong> sus inversiones. En la práctica, se ofrece a todos los segmentos sin distinción, lo que diluye la propuesta de valor.</p>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-arrow" onclick="goTo(1)">← Anterior</button>
+    <span class="slide-counter">3 / 9</span>
+    <button class="nav-arrow" onclick="goTo(3)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- SLIDE 3: FRICCIONES -->
+<div class="slide" id="s3">
+  <div class="sec-hdr">
+    <div class="sec-eyebrow">03 — Fricciones actuales</div>
+    <div class="sec-title">¿Dónde están los puntos de dolor?</div>
+    <div class="sec-sub">Basado en retroalimentación de asesores, NPS del servicio y sesiones de co-creación.</div>
+  </div>
+  <div class="divider"></div>
+  <div class="cp">
+    <div class="fric-item">
+      <div class="fric-dot" style="background:var(--sk-green);"></div>
+      <div class="fric-body"><strong>Comunicación en alta volatilidad.</strong> Los rebalanceos generan confusión: clientes creen que les están retirando el dinero. No hay comunicación proactiva con contexto de mercado.</div>
+    </div>
+    <div class="fric-item">
+      <div class="fric-dot" style="background:var(--sk-green);"></div>
+      <div class="fric-body"><strong>Desempeño relativo frente a otras alternativas.</strong> Los clientes comparan constantemente con otros productos que presentan retornos superiores en periodos puntuales.</div>
+    </div>
+    <div class="fric-item">
+      <div class="fric-dot" style="background:var(--sk-orange);"></div>
+      <div class="fric-body"><strong>Consistencia estrategia – perfil – mercado.</strong> Los clientes no entienden por qué se hacen los rebalanceos ni cómo se alinean con su perfil de riesgo.</div>
+    </div>
+    <div class="fric-item">
+      <div class="fric-dot" style="background:var(--sk-orange);"></div>
+      <div class="fric-body"><strong>Acceso y acompañamiento limitados.</strong> La activación solo funciona saliendo del portal, muchas veces con acompañamiento del FP, sin necesidad regulatoria para ello.</div>
+    </div>
+    <div class="fric-item">
+      <div class="fric-dot" style="background:#ccc;"></div>
+      <div class="fric-body"><strong>Mezclas percibidas como similares.</strong> Perfiles moderado y agresivo muestran rentabilidades muy parecidas en simulación, eliminando el incentivo para asumir más riesgo.</div>
+    </div>
+    <div style="background:var(--sk-gray-light);border-radius:10px;padding:1.1rem 1.25rem;margin-top:1.25rem;">
+      <div style="font-size:11px;font-weight:600;color:#888;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.06em;">Lo que dicen los clientes (NPS)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+        <div><div style="font-size:11px;font-weight:700;color:var(--sk-green-dark);margin-bottom:.35rem;">Promotores</div><div style="font-size:12px;color:#555;line-height:1.55;">Confían en la gestión experta. Valoran que siempre se comuniquen los rebalanceos.</div></div>
+        <div><div style="font-size:11px;font-weight:700;color:#B37800;margin-bottom:.35rem;">Neutrales</div><div style="font-size:12px;color:#555;line-height:1.55;">Rentabilidad moderada, mejorable. Piden más contacto personalizado y más movimientos.</div></div>
+        <div><div style="font-size:11px;font-weight:700;color:#C0392B;margin-bottom:.35rem;">Detractores</div><div style="font-size:12px;color:#555;line-height:1.55;">Frustración por bajas rentabilidades. Dificultad para contactar asesores cuando más lo necesitan.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-arrow" onclick="goTo(2)">← Anterior</button>
+    <span class="slide-counter">4 / 9</span>
+    <button class="nav-arrow" onclick="goTo(4)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- SLIDE 4: APRENDIZAJES -->
+<div class="slide" id="s4">
+  <div class="sec-hdr">
+    <div class="sec-eyebrow">04 — Aprendizajes del taller</div>
+    <div class="sec-title">¿Qué encontramos?</div>
+    <div class="sec-sub">8 hallazgos organizados por impacto en el foco estratégico del proyecto.</div>
+  </div>
+  <div class="divider"></div>
+  <div class="cp">
+    <div class="h-grid">
+      <div class="h-card h-alto">
+        <div class="h-num">Hallazgo 01</div>
+        <span class="badge b-alto">Impacto alto</span>
+        <div class="h-title">Propuesta de valor incongruente</div>
+        <div class="h-desc">"Potencializar la inversión" choca con rentabilidades no percibidas como atractivas. El producto se usa de forma oportunista, no estratégica.</div>
+      </div>
+      <div class="h-card h-alto">
+        <div class="h-num">Hallazgo 02</div>
+        <span class="badge b-alto">Impacto alto</span>
+        <div class="h-title">Fricciones en activación</div>
+        <div class="h-desc">El flujo es largo y solo accesible saliendo del portal, muchas veces con acompañamiento. Sin restricción regulatoria: es una limitación de experiencia resoluble.</div>
+      </div>
+      <div class="h-card h-alto">
+        <div class="h-num">Hallazgo 03</div>
+        <span class="badge b-alto">Impacto alto</span>
+        <div class="h-title">Comunicación reactiva en volatilidad</div>
+        <div class="h-desc">Los rebalanceos generan confusión y retiros. Falta comunicación proactiva con contexto de mercado en momentos críticos.</div>
+      </div>
+      <div class="h-card h-medio">
+        <div class="h-num">Hallazgo 04</div>
+        <span class="badge b-medio">Impacto medio</span>
+        <div class="h-title">Mezclas muy similares entre sí</div>
+        <div class="h-desc">Sin diferenciación perceptible entre perfiles. Rentabilidades de moderado y agresivo casi iguales en simulación.</div>
+      </div>
+      <div class="h-card h-medio">
+        <div class="h-num">Hallazgo 05</div>
+        <span class="badge b-medio">Impacto medio</span>
+        <div class="h-title">Oportunidad educativa y gamificación</div>
+        <div class="h-desc">Vincular Invested a aprendizaje y dinámicas de progreso puede generar permanencia independiente de la rentabilidad.</div>
+      </div>
+      <div class="h-card h-alto">
+        <div class="h-num">Hallazgo 06</div>
+        <span class="badge b-alto">Impacto alto</span>
+        <div class="h-title">Desalineación FP – Invested</div>
+        <div class="h-desc">Los Financial Planners no están alineados. Cuando el cliente acude al FP tras un evento, hay choque comunicacional.</div>
+      </div>
+      <div class="h-card h-medio">
+        <div class="h-num">Hallazgo 07</div>
+        <span class="badge b-medio">Impacto medio</span>
+        <div class="h-title">Fortalezas subexplotadas</div>
+        <div class="h-desc">Doble gestión experta, trazabilidad y mezclas amplias son ventajas reales que no se comunican con suficiente claridad.</div>
+      </div>
+      <div class="h-card h-alto">
+        <div class="h-num">Hallazgo 08</div>
+        <span class="badge b-alto">Impacto alto</span>
+        <div class="h-title">Experiencia mobile insuficiente</div>
+        <div class="h-desc">El grueso del tráfico llega por mobile, pero la experiencia está diseñada para desktop. Interfaz percibida como anticuada.</div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-arrow" onclick="goTo(3)">← Anterior</button>
+    <span class="slide-counter">5 / 9</span>
+    <button class="nav-arrow" onclick="goTo(5)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- SLIDE 5: PROFUNDIDAD -->
+<div class="slide" id="s5">
+  <div class="sec-hdr">
+    <div class="sec-eyebrow">05 — Profundidad en hallazgos clave</div>
+    <div class="sec-title">Los más críticos para el foco</div>
+    <div class="sec-sub">Detalle de los hallazgos directamente ligados a escalar valor más allá de las rentabilidades.</div>
+  </div>
+  <div class="divider"></div>
+  <div class="cp">
+    <div class="detail-block">
+      <div class="db-hdr"><div class="db-num">1</div><div class="db-title">La propuesta de valor necesita conectar con objetivos de vida, no solo con rentabilidades</div></div>
+      <div class="db-body">El mensaje actual choca con la percepción de las rentabilidades. El producto se usa en horizontes cortos cuando está diseñado para el largo plazo. Al ofrecerse a todos los segmentos, la propuesta se diluye. Invested funciona mejor para quienes quieren más que ahorro básico, valoran la gestión profesional pero no quieren operar activamente.</div>
+      <div class="quote"><p>"Un cliente sería más fiel a Invested si no lo ofrecemos solo como una herramienta para potencializar la inversión, sino que lo conectamos con más objetivos."</p><span>— Stakeholder, ejercicio de co-creación</span></div>
+    </div>
+    <div class="detail-block">
+      <div class="db-hdr"><div class="db-num">3</div><div class="db-title">El rebalanceo debe comunicarse con contexto, no solo como transacción</div></div>
+      <div class="db-body">El correo de rebalanceo es interpretado por clientes como un retiro no autorizado. La solución no es mejorar el correo: es contextualizar con información de mercado y anticiparse a la pregunta. Betterment y Moneyfarm producen informes especializados de volatilidad para suavizar el impacto emocional.</div>
+      <div class="quote"><p>"Cuando hacen un rebalanceo, le llega un correo al cliente y el cliente siempre me llama a decirme que me están sacando plata. Hay un problema en esa comunicación."</p><span>— Financial Planner, sesión de co-creación</span></div>
+    </div>
+    <div class="detail-block">
+      <div class="db-hdr"><div class="db-num">5</div><div class="db-title">Educación y gamificación: las palancas de escala independientes de la rentabilidad</div></div>
+      <div class="db-body">Reposicionar Invested como "la única opción para invertir mientras aprendes" generaría diferenciación difícil de replicar. La gamificación —sentir que se avanza, subir de nivel, pertenecer a una comunidad— puede ser la clave para retener clientes cuando el mercado no acompaña. Esto es el núcleo del foco del proyecto.</div>
+    </div>
+    <div class="detail-block" style="border-bottom:none;">
+      <div class="db-hdr"><div class="db-num">7</div><div class="db-title">Fortalezas que hoy son invisibles para el cliente</div></div>
+      <div style="margin-top:.6rem;">
+        <div class="fort-row">
+          <div class="fort-ico"><svg viewBox="0 0 16 16" fill="none"><path d="M8 2L14 12H2L8 2Z" fill="#009B2E"/></svg></div>
+          <div><div class="fort-title">Doble gestión experta</div><div class="fort-desc">Modelo estadístico-económico + criterio humano. Posiciona Invested como un "human-robo advisor" diferenciado.</div></div>
+        </div>
+        <div class="fort-row">
+          <div class="fort-ico"><svg viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="#009B2E" stroke-width="1.2"/><path d="M5 8l2 2 4-4" stroke="#009B2E" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+          <div><div class="fort-title">Trazabilidad digital completa</div><div class="fort-desc">Reduce riesgo operativo y simplifica auditorías ante SFC y AMV.</div></div>
+        </div>
+        <div class="fort-row" style="border:none;">
+          <div class="fort-ico"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#009B2E" stroke-width="1.2"/><path d="M5 8h6M8 5v6" stroke="#009B2E" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+          <div><div class="fort-title">Mezclas más amplias que la banca tradicional</div><div class="fort-desc">Ventaja real de diversificación que el cliente raramente ve comunicada de forma clara.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-arrow" onclick="goTo(4)">← Anterior</button>
+    <span class="slide-counter">6 / 9</span>
+    <button class="nav-arrow" onclick="goTo(6)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- SLIDE 6: HIPÓTESIS -->
+<div class="slide" id="s6">
+  <div class="sec-hdr">
+    <div class="sec-eyebrow">06 — Hipótesis a validar</div>
+    <div class="sec-title">¿Qué creemos y necesitamos comprobar?</div>
+    <div class="sec-sub">7 hipótesis priorizadas. Las críticas están directamente ligadas a demostrar valor más allá de la rentabilidad.</div>
+  </div>
+  <div class="divider"></div>
+  <div class="cp">
+    <div class="hip-list">
+      <div class="hip-card highlight">
+        <div class="hip-hdr"><span class="hip-num">H1</span><span class="badge b-critica">Crítica</span></div>
+        <div class="hip-title">La forma de mostrar rentabilidades —no el número— frena la activación</div>
+        <div class="hip-desc">Creemos que los usuarios no completan la activación porque las rentabilidades históricas se muestran al final del flujo sin contexto. El problema no es el número, sino cómo y cuándo se presenta. Mostrar el desempeño en contexto (rangos de pérdida-ganancia y benchmarks comparativos) debería mejorar la conversión.</div>
+      </div>
+      <div class="hip-card highlight">
+        <div class="hip-hdr"><span class="hip-num">H2</span><span class="badge b-critica">Crítica</span></div>
+        <div class="hip-title">Una propuesta educativa genera mayor permanencia que una basada solo en rentabilidad</div>
+        <div class="hip-desc">Creemos que los clientes que entienden por qué se les asigna una mezcla y qué implica cada decisión desertan menos en volatilidad. Si Invested se posiciona como "la única opción para invertir mientras aprendes", conectará con objetivos más profundos que el rendimiento mensual.</div>
+      </div>
+      <div class="hip-card highlight">
+        <div class="hip-hdr"><span class="hip-num">H3</span><span class="badge b-critica">Crítica</span></div>
+        <div class="hip-title">Las dinámicas de gamificación pueden sustituir la rentabilidad como motor de retención</div>
+        <div class="hip-desc">Creemos que la deserción actual ocurre porque, sin rentabilidad visible, el cliente siente que no avanza. Si incorporamos indicadores de progreso hacia objetivos, reconocimientos por hitos y niveles de sofisticación accesibles, el cliente encontrará valor incluso cuando el mercado no acompaña.</div>
+      </div>
+      <div class="hip-card">
+        <div class="hip-hdr"><span class="hip-num">H4</span><span class="badge b-alta">Alta prioridad</span></div>
+        <div class="hip-title">La comunicación proactiva en volatilidad reduce retiros y aumenta confianza</div>
+        <div class="hip-desc">Creemos que los retiros en caídas son decisiones emocionales provocadas por falta de contexto. Comunicaciones proactivas con contexto de mercado antes de que el cliente pregunte reducirían retiros y mejorarían el NPS entre neutrales y detractores.</div>
+      </div>
+      <div class="hip-card">
+        <div class="hip-hdr"><span class="hip-num">H5</span><span class="badge b-alta">Alta prioridad</span></div>
+        <div class="hip-title">La diferenciación entre mezclas es clave para que el cliente perciba el valor</div>
+        <div class="hip-desc">Creemos que la propuesta de valor de Invested depende de que el cliente sienta que su mezcla es realmente distinta a lo que obtendría por cuenta propia o a través de la banca tradicional. Si no percibe esa diferencia, no hay razón para activar ni para permanecer.</div>
+      </div>
+      <div class="hip-card">
+        <div class="hip-hdr"><span class="hip-num">H6</span><span class="badge b-alta">Alta prioridad</span></div>
+        <div class="hip-title">El posicionamiento como "human-robo advisor" genera confianza en nuevos usuarios</div>
+        <div class="hip-desc">Creemos que en un contexto donde la IA es tendencia, posicionar Invested como modelo híbrido (tecnología + criterio experto) aumenta la percepción de sofisticación y confianza, especialmente en menores de 40 años.</div>
+      </div>
+      <div class="hip-card">
+        <div class="hip-hdr"><span class="hip-num">H7</span><span class="badge b-alta">Alta prioridad</span></div>
+        <div class="hip-title">Alinear la narrativa de los FPs con Invested reduce fricciones y aumenta conversión</div>
+        <div class="hip-desc">Creemos que gran parte de la insatisfacción ocurre cuando el cliente acude al FP y este no tiene contexto de lo que Invested comunicó. Si la fuerza comercial tiene herramientas y actualizaciones en tiempo real, el FP se convierte en amplificador del servicio.</div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-arrow" onclick="goTo(5)">← Anterior</button>
+    <span class="slide-counter">7 / 9</span>
+    <button class="nav-arrow" onclick="goTo(7)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- SLIDE 7: PASOS -->
+<div class="slide" id="s7">
+  <div class="sec-hdr">
+    <div class="sec-eyebrow">07 — Siguientes pasos</div>
+    <div class="sec-title">¿Qué hacemos ahora?</div>
+    <div class="sec-sub">6 pasos ordenados por urgencia, alineados con el foco de escalar valor más allá de las rentabilidades.</div>
+  </div>
+  <div class="divider"></div>
+  <div class="cp">
+    <div class="paso-list">
+      <div class="paso-card">
+        <div class="paso-num">1</div>
+        <div>
+          <div class="paso-title">Diseñar y prototipar el nuevo flujo</div>
+          <div class="paso-desc">Reducir el flujo de activación, incorporar Invested al portal de clientes y optimizar sus funcionalidades. Priorizar mobile. Incluir nueva forma de mostrar rentabilidades en contexto y narrativa de la mezcla recomendada.</div>
+        </div>
+      </div>
+      <div class="paso-card">
+        <div class="paso-num">2</div>
+        <div>
+          <div class="paso-title">Validar hipótesis críticas con investigación con usuarios</div>
+          <div class="paso-desc">Conducir entrevistas con clientes activos e inactivos y con prospectos del segmento objetivo. Foco: qué comunica valor cuando la rentabilidad no es el argumento central.</div>
+        </div>
+      </div>
+      <div class="paso-card">
+        <div class="paso-num">3</div>
+        <div>
+          <div class="paso-title">Rediseñar la comunicación de rebalanceos y eventos de volatilidad</div>
+          <div class="paso-desc">Crear una librería de comunicaciones proactivas para los escenarios más frecuentes. Cada comunicación incluye contexto de mercado, explicación del movimiento y lenguaje que tranquilice sin trivializar. Validar con FPs antes del lanzamiento.</div>
+        </div>
+      </div>
+      <div class="paso-card">
+        <div class="paso-num">4</div>
+        <div>
+          <div class="paso-title">Mapear la diferenciación actual entre mezclas</div>
+          <div class="paso-desc">Analizar cuán distintas son las mezclas en composición, volatilidad y rentabilidad ajustada al riesgo. Evaluar si el rediseño de mezclas o la mejora de su visualización es la solución más viable a corto plazo.</div>
+        </div>
+      </div>
+      <div class="paso-card">
+        <div class="paso-num">5</div>
+        <div>
+          <div class="paso-title">Co-diseñar el modelo educativo y de gamificación</div>
+          <div class="paso-desc">Definir qué elementos son viables a corto plazo (progreso hacia objetivos, explicación de mezclas, premios visuales) vs. mediano plazo (niveles, comunidad, contenidos).</div>
+        </div>
+      </div>
+      <div class="paso-card">
+        <div class="paso-num">6</div>
+        <div>
+          <div class="paso-title">Desarrollar el kit de alineación para Financial Planners</div>
+          <div class="paso-desc">Guía actualizada del producto, FAQ sobre rebalanceos y volatilidad, y canal de actualización en tiempo real.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-arrow" onclick="goTo(6)">← Anterior</button>
+    <span class="slide-counter">8 / 9</span>
+    <button class="nav-arrow" onclick="goTo(8)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- SLIDE 8: CIERRE -->
+<div class="slide" id="s8">
+  <div class="sec-hdr">
+    <div class="sec-eyebrow">08 — Conclusión final</div>
+    <div class="sec-title">El reto central de Invest-ed 3.0</div>
+    <div class="sec-sub">La conclusión más importante que dejó el taller.</div>
+  </div>
+  <div class="divider"></div>
+  <div class="cp">
+    <div class="cierre">
+
+      <div class="cierre-label">Conclusión estratégica</div>
+      <div class="cierre-title">Invested no puede seguir compitiendo únicamente en el terreno de la rentabilidad.</div>
+      <div class="cierre-text">No porque sus rentabilidades sean malas —son competitivas y en varios horizontes superan a los benchmarks— sino porque la rentabilidad es un argumento frágil: no siempre se puede ganar en el corto plazo y los clientes la comparan constantemente con alternativas que pueden verse mejores en períodos puntuales.</div>
+      <div class="cierre-text">La oportunidad real está en construir un servicio que el cliente valore por lo que hace por él más allá de los números: porque le ayuda a entender sus inversiones, porque le acompaña cuando el mercado cae, porque le ayuda a cumplir objetivos de vida concretos y porque le da la tranquilidad de saber que hay expertos cuidando su dinero con criterio.</div>
+      <div class="cierre-footer">Informe elaborado por UXplorers · Skandia · Marzo 2026</div>
+    </div>
+    <div style="margin-top:1.5rem;background:var(--sk-gray-light);border-radius:10px;padding:1.1rem 1.25rem;">
+      <div style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;">Hipótesis críticas — resumen</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;gap:.7rem;align-items:center;"><span style="width:24px;height:24px;min-width:24px;border-radius:50%;background:var(--sk-green);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">1</span><span style="font-size:13px;color:#555;">La forma de mostrar rentabilidades frena la activación</span></div>
+        <div style="display:flex;gap:.7rem;align-items:center;"><span style="width:24px;height:24px;min-width:24px;border-radius:50%;background:var(--sk-green);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">2</span><span style="font-size:13px;color:#555;">La educación genera mayor permanencia que la rentabilidad</span></div>
+        <div style="display:flex;gap:.7rem;align-items:center;"><span style="width:24px;height:24px;min-width:24px;border-radius:50%;background:var(--sk-green);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">3</span><span style="font-size:13px;color:#555;">La gamificación puede sustituir la rentabilidad como motor de retención</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-arrow" onclick="goTo(7)">← Anterior</button>
+    <span class="slide-counter">9 / 9</span>
+    <button class="nav-arrow" disabled>Fin →</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+let cur = 0;
+function goTo(n) {
+  document.getElementById('s' + cur).classList.remove('active');
+  document.querySelectorAll('.step-btn')[cur].classList.remove('active');
+  cur = n;
+  document.getElementById('s' + cur).classList.add('active');
+  document.querySelectorAll('.step-btn')[cur].classList.add('active');
+  document.querySelectorAll('.step-btn')[cur].scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
